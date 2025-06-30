@@ -42048,7 +42048,7 @@ async function setFixVersion(jiraVersion) {
 
 async function run() {
   try {
-    const { tag_name, name, published_at } = githubExports.context.payload.release;
+    const tag_name = githubExports.context.github.ref_name;
 
     let jiraVersionName = `${githubExports.context.repo.repo}-${tag_name.replace(/^v/, '')}`;
 
@@ -42057,9 +42057,9 @@ async function run() {
         json: {
           name: jiraVersionName,
           projectId: coreExports.getInput('project_id'),
-          description: name,
+          description: tag_name,
           released: true,
-          releaseDate: published_at?.split('T')[0] || undefined,
+          releaseDate: (new Date().toISOString()).split('T')[0],
         },
       })
       .json();
