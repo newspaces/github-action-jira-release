@@ -6,7 +6,7 @@ import jiraClient from './jira-client'
 
 async function run() {
   try {
-    const tag_name = context.github.ref_name
+    const tag_name = context.ref.split('/').pop()
 
     let jiraVersionName = `${context.repo.repo}-${tag_name.replace(/^v/, '')}`
 

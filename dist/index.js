@@ -42048,7 +42048,7 @@ async function setFixVersion(jiraVersion) {
 
 async function run() {
   try {
-    const tag_name = githubExports.context.github.ref_name;
+    const tag_name = githubExports.context.ref.split('/').pop();
 
     let jiraVersionName = `${githubExports.context.repo.repo}-${tag_name.replace(/^v/, '')}`;
 
