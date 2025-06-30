@@ -16,6 +16,7 @@ async function run() {
           name: jiraVersionName,
           projectId: core.getInput('project_id'),
           description: name,
+          released: true,
         },
       })
       .json()
