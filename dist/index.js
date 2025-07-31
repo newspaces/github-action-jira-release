@@ -31249,7 +31249,7 @@ var coreExports = requireCore();
 
 const defaultApiParams = { owner: githubExports.context.repo.owner, repo: githubExports.context.repo.repo };
 const jiraTicketRegex = new RegExp(
-  `^(${coreExports.getInput('project_key')}-\\d+):?\\s?.+`,
+  `(${coreExports.getInput('project_key')}-\\d+)`,
   'i'
 );
 
