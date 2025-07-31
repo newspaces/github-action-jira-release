@@ -42052,12 +42052,14 @@ async function run() {
 
     let jiraVersionName = `${githubExports.context.repo.repo}-${tag_name.replace(/^v/, '')}`;
 
+    const tickets = await getJiraTicketsFromCommits();
+
     const data = await jiraClient
       .post('rest/api/3/version', {
         json: {
           name: jiraVersionName,
           projectId: coreExports.getInput('project_id'),
-          description: tag_name,
+          description: tickets.join(','),
           released: true,
           releaseDate: (new Date().toISOString()).split('T')[0],
         },
