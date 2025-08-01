@@ -34,7 +34,7 @@ async function updateJiraTickets(tickets, jiraVersion) {
     }
   })
 
-  return await Promise.all(promises)
+  return await Promise.allSettled(promises)
 }
 
 async function setFixVersion(jiraVersion) {

@@ -42036,7 +42036,7 @@ async function updateJiraTickets(tickets, jiraVersion) {
     }
   });
 
-  return await Promise.all(promises)
+  return await Promise.allSettled(promises)
 }
 
 async function setFixVersion(jiraVersion) {
@@ -42053,6 +42053,7 @@ async function run() {
     let jiraVersionName = `${githubExports.context.repo.repo}-${tag_name.replace(/^v/, '')}`;
 
     const tickets = await getJiraTicketsFromCommits();
+    console.log('tickets', tickets);
 
     const data = await jiraClient
       .post('rest/api/3/version', {

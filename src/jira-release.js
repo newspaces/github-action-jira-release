@@ -12,6 +12,7 @@ async function run() {
     let jiraVersionName = `${context.repo.repo}-${tag_name.replace(/^v/, '')}`
 
     const tickets = await getJiraTicketsFromCommits()
+    console.log('tickets', tickets)
 
     const data = await jiraClient
       .post('rest/api/3/version', {
