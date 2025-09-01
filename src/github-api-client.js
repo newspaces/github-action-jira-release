@@ -53,6 +53,22 @@ async function getJiraTicketsFromCommits() {
     })
     .filter((el) => el)
 
+  try {
+    const diff = await github.rest.repos.compareCommitsWithBasehead({
+      ...defaultApiParams,
+      basehead: `${previousTag.name}...${latestTag.name}`,
+    })
+
+    diff.data.commits.forEach((commit) => {
+      const regexMatches = jiraTicketRegex.exec(commit.commit.message) || []
+      if (regexMatches[1]) {
+        jiraTickets.push(regexMatches[1])
+      }
+    })
+  } catch (error) {
+    console.error('Error compareCommitsWithBasehead', error)
+  }
+
   return Array.from(new Set(jiraTickets)) // use Set to eliminate duplicate entries
 }
 
